@@ -4,15 +4,22 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Labrix.az</title>
-<link rel="icon" href="labrix logo.webp" type="image/webp"/>
+<link rel="icon" href="labrix logo.webp" type="image/webp" />
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+  
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
   body {
     margin: 0;
     font-family: "Poppins", sans-serif;
     background: linear-gradient(135deg, #1f4068, #2980b9);
     color: #f0f0f0;
+    scroll-behavior: smooth;
   }
+  
   header {
     background: rgba(10, 61, 98, 0.9);
     padding: 40px 20px;
@@ -89,6 +96,14 @@
     background: rgba(255,255,255,0.05);
     border-radius: 15px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    will-change: opacity, transform;
+  }
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
   section h2 {
     font-size: 2.3rem;
@@ -113,26 +128,24 @@
     margin-bottom: 14px;
   }
 
-  /* Video Section */
   #robot-video {
     text-align: center;
     margin-top: 70px;
   }
-  #robot-video iframe {
+  #robot-video iframe, #robot-video video {
     max-width: 100%;
     border-radius: 18px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.25);
     transition: transform 0.3s ease;
   }
-  #robot-video iframe:hover {
+  #robot-video iframe:hover, #robot-video video:hover {
     transform: scale(1.05);
   }
 
-  /* Team cards */
   .team-container {
     display: flex;
     justify-content: center;
-    gap: 42px;
+    gap: 32px;
     flex-wrap: wrap;
   }
   .team-member {
@@ -176,7 +189,6 @@
     color: #fffde7cc;
   }
 
-  /* Contact */
   #contact p {
     text-align: center;
     font-size: 1.1rem;
@@ -202,6 +214,7 @@
 </style>
 </head>
 <body>
+
 <header>
   <img src="labrix logo.webp" alt="Labrix.az Logo" />
   <h1>Labrix.az</h1>
@@ -231,7 +244,10 @@
 
 <section id="robot-video">
   <h2>Working Principle of the Robotic Arm</h2>
-  <iframe width="800" height="450" src="robot-video.mp4" title="Robot Arm Video" frameborder="0" allowfullscreen></iframe>
+  <video width="800" height="450" controls>
+    <source src="robot-video.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
 </section>
 
 <section id="team">
@@ -269,9 +285,28 @@
 </footer>
 
 <script>
+  const sections = document.querySelectorAll('section');
+
+  function checkSections() {
+    const triggerBottom = window.innerHeight * 0.85;
+    sections.forEach(section => {
+      const top = section.getBoundingClientRect().top;
+      if(top < triggerBottom) {
+        section.classList.add('visible');
+      } else {
+        section.classList.remove('visible');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', checkSections);
+  window.addEventListener('load', checkSections);
+
+  // Open LinkedIn profiles in new tab
   function openLinkedIn(link) {
     window.open(link, "_blank");
   }
 </script>
+
 </body>
 </html>

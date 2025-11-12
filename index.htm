@@ -8,6 +8,7 @@
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
   
+  /* Basic reset */
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -64,6 +65,7 @@
     z-index: 1500;
     backdrop-filter: saturate(150%) blur(10px);
     border-bottom: 2px solid #fbc531;
+    flex-wrap: nowrap;
   }
   nav a {
     color: #f0f0f0;
@@ -71,6 +73,7 @@
     font-size: 1.1rem;
     position: relative;
     transition: color 0.3s ease;
+    white-space: nowrap;
   }
   nav a::after {
     content: "";
@@ -89,6 +92,7 @@
     width: 100%;
   }
 
+  /* Sections style */
   section {
     max-width: 950px;
     margin: 60px auto;
@@ -128,12 +132,14 @@
     margin-bottom: 14px;
   }
 
+  /* Video Section */
   #robot-video {
     text-align: center;
     margin-top: 70px;
   }
   #robot-video iframe, #robot-video video {
     max-width: 100%;
+    height: auto;
     border-radius: 18px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.25);
     transition: transform 0.3s ease;
@@ -142,6 +148,7 @@
     transform: scale(1.05);
   }
 
+  /* Team cards */
   .team-container {
     display: flex;
     justify-content: center;
@@ -189,6 +196,7 @@
     color: #fffde7cc;
   }
 
+  /* Contact */
   #contact p {
     text-align: center;
     font-size: 1.1rem;
@@ -210,6 +218,48 @@
     text-align: center;
     font-weight: 300;
     margin-top: 64px;
+  }
+
+  /* Responsive Design */
+  @media only screen and (max-width: 768px) {
+    nav {
+      flex-direction: column;
+      gap: 15px;
+      padding: 15px 10px;
+    }
+    nav a {
+      font-size: 1.3rem;
+      white-space: normal;
+      text-align: center;
+    }
+    section {
+      margin: 40px 20px;
+      padding: 30px 20px;
+    }
+    header h1 {
+      font-size: 2.4rem;
+    }
+    header img {
+      height: 70px;
+    }
+    .team-container {
+      flex-direction: column;
+      gap: 25px;
+      max-width: 320px;
+      margin: auto;
+    }
+    .team-member {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 400px) {
+    header h1 {
+      font-size: 1.8rem;
+    }
+    nav a {
+      font-size: 1.1rem;
+    }
   }
 </style>
 </head>
@@ -285,6 +335,7 @@
 </footer>
 
 <script>
+  // Scroll animation to sections
   const sections = document.querySelectorAll('section');
 
   function checkSections() {
@@ -302,7 +353,6 @@
   window.addEventListener('scroll', checkSections);
   window.addEventListener('load', checkSections);
 
-  // Open LinkedIn profiles in new tab
   function openLinkedIn(link) {
     window.open(link, "_blank");
   }
